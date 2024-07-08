@@ -1,0 +1,60 @@
+.loginparentDiv h2 {
+  text-align: center;
+}
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 450px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #f5f5f5;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+}
+
+.loginform-container input {
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #e8e8e8;
+  box-shadow: 20px 20px 60px #c5c5c5, -20px -20px 60px #ffffff;
+  transition: 0.3s;
+  width: 250px;
+}
+
+.loginform-container input:focus {
+  outline-color: #e8e8e8;
+  background: #e8e8e8;
+  box-shadow: inset 20px 20px 60px #c5c5c5, inset -20px -20px 60px #ffffff;
+  transition: 0.3s;
+}
+
+.loginform-container button {
+  border-radius: 20px;
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  margin-top: 20px;
+}
+
+.loginform-container button:hover {
+  background-color: whitesmoke;
+  color: black;
+  border: 2px solid black;
+  font-weight: bolder;
+}
+
+.loginform-container p {
+  margin-top: 50px;
+  font-weight: lighter;
+}

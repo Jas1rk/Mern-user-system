@@ -1,0 +1,42 @@
+header {
+    background: #f5f5f5;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    padding: 10px;
+    position: fixed;
+    width: 100vw;
+    z-index: 999;
+    
+
+}
+
+header .navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navBar h2 {
+   margin-left: 20px;
+}
+
+.logOut button {
+    margin-right: 50px;
+    width: 100px;
+    height: 30px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+
+}
+
+
+.logOut button:hover{
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid black;
+    font-weight: bolder;
+}

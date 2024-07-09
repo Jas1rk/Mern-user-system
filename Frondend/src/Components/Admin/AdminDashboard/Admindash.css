@@ -1,0 +1,68 @@
+.main h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.main {
+  padding: 50px 200px;
+}
+
+.heading-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  margin-top: 30px;
+  border-spacing: 20px;
+}
+
+.heading-table thead th {
+  height: 50px;
+  border-radius: 50px;
+  color: white;
+  text-align: center;
+  padding: 0 15px;
+}
+
+/* .heading-table thead th.edit,
+.heading-table thead th.delete,
+.heading-table tbody td.edit,
+.heading-table tbody td.delete {
+  width: 80px;
+} */
+
+.heading-table thead {
+  background-color: black;
+}
+
+.list td {
+  padding-left: 20px;
+}
+
+.list button {
+  margin-left: 10px;
+  width: 100px;
+}
+
+.button-section .adminedit {
+  background-color: aliceblue;
+  color: black;
+  border: 2px solid black;
+}
+
+.button-section .adminedit:hover {
+  background-color: black;
+  color: aliceblue;
+}
+
+.list input {
+  border-radius: 10px;
+  margin: -4px;
+  width: 116px;
+  height: 25px;
+  border: 1px solid black;
+  outline: none;
+}
+
+.list input::placeholder {
+    padding-left: 10px;
+}

@@ -7,18 +7,18 @@ header {
   z-index: 999;
 }
 
-header .navBar {
+header .adminNavBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.navBar h2 {
+.adminNavBar h2 {
   margin-left: 20px;
 }
 
-.logOut button {
+.AdminlogOut button {
   margin-right: 50px;
   width: 100px;
   height: 30px;
@@ -30,7 +30,7 @@ header .navBar {
   cursor: pointer;
 }
 
-.logOut button:hover {
+.AdminlogOut button:hover {
   background-color: #ffffff;
   color: black;
   border: 2px solid black;

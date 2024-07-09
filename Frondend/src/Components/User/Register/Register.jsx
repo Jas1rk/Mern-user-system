@@ -31,12 +31,10 @@ const Register = () => {
           <button>Register</button>
           <br />
           <br />
-          <p>Already have an account ? <Link to ="/login">Login</Link></p>
+          <p>
+            Already have an account ? <Link to="/login">Login</Link>
+          </p>
         </form>
-      
-            
-           
-        
       </div>
     </div>
   );

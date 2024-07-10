@@ -12,16 +12,16 @@ const tokenCreation = (userId) => {
 const tokenVerify = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
-    return res.send("Access-denied");
+    return res.send("Access_denied");
   }
   const token = authHeader.split(" ")[1];
   if (!token) {
-    return res.send("Access-denied");
+    return res.send("Access_denied");
   }
 
   jwt.verify(token, process.env.secret_key, (err, decoded) => {
     if (err) {
-      return res.send("Authentication-filed");
+      return res.send("Authentication_filed");
     } else {
       next();
     }

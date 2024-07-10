@@ -45,13 +45,47 @@ export const registration = async ({
       email,
       mobile,
       password,
-      
     });
-    if(response.data === 'userExist'){
-        toast.error('User already exist')
-    }else{
-        toast.success('Registation completed')
-        return "success"
+    if (response.data === "userExist") {
+      toast.error("User already exist");
+    } else {
+      toast.success("Registation completed");
+      return "success";
     }
   }
 };
+
+export const loginVerify = createAsyncThunk(
+  "user/loginVerify",
+  async ({ email, password, toast }, { rejectWithValue }) => {
+    email = email.trim();
+    password = password.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email === "" || password === "") {
+      toast.error("Please fill all the fields");
+      return rejectWithValue("Please fill all the fields");
+    } else if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email");
+      return rejectWithValue("Please enter a valid email");
+    } else {
+      const response = await axios.post(`${serverUrl}/login`, {
+        email,
+        password,
+      });
+      if (response.data === "passwordIncorrect") {
+        toast.error("Password is incorrect");
+        return rejectWithValue("Password is incorrect");
+      } else if (response.data === "userNotExist") {
+        toast.error("User does not exist");
+        return rejectWithValue("User does not exist");
+      } else {
+        return response.data;
+      }
+    }
+  }
+);
+
+
+
+export const editProfile = createAsyncThunk('user/editProfile',async()=>{})

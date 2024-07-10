@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import UseForm from "../../../Hooks/useForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast, { Toaster } from "react-hot-toast";
 import { registration } from "../../../Redux/User/userThunk";
+import "./Register.css";
 
 const Register = () => {
   const [formValues, handleInput] = UseForm({

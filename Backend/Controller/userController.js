@@ -1,5 +1,6 @@
 const User = require("../Model/userModel");
 const bcrypt = require("bcrypt");
+const { createToken } = require("../Config/jwt");
 
 const registerPost = async (req, res) => {
   try {
@@ -23,6 +24,36 @@ const registerPost = async (req, res) => {
   }
 };
 
+const loginPost = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const findUser = await User.findOne({ email: email });
+    if (findUser) {
+      const comparePassword = await bcrypt.compare(password, findUser.password);
+      if (comparePassword) {
+        const userData = {
+          _id: findUser._id,
+          username: findUser.username,
+          email: findUser.email,
+          mobile: findUser.mobile,
+          password: findUser.password,
+          image: findUser.image,
+        };
+
+        const token = createToken(userData._id);
+        res.json({userData, token});
+      } else {
+        res.send("passwordIncorrect");
+      }
+    } else {
+      res.send("userNotExist");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   registerPost,
+  loginPost,
 };

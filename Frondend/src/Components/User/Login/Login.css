@@ -58,3 +58,18 @@
   margin-top: 50px;
   font-weight: lighter;
 }
+
+.loginpass-container {
+  position: relative;
+}
+.loginpass-container input {
+  width: 220px;
+}
+.show-icon {
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  
+}

@@ -26,9 +26,6 @@
   background-color: #d8d0d0;
 }
 
-
-
-
 .editForm {
   display: flex;
   flex-direction: column;
@@ -115,4 +112,24 @@ button:hover {
   right: -10px;
   color: black;
   cursor: pointer;
+}
+
+.editform-buttons {
+  display: flex;
+  gap: 30px;
+}
+
+.editform-buttons .save-btn {
+  border: 1px solid black;
+}
+.editform-buttons .cancel-btn {
+  background-color: #ffffff;
+  border: 1px solid black;
+  color: black;
+  font-weight: bolder;
+}
+
+.editform-buttons .cancel-btn:hover {
+  background-color: black;
+  color: whitesmoke;
 }

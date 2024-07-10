@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../..";
+import { useSelector } from "react-redux";
+import UseForm from "../../../Hooks/useForm";
+import { editProfile } from "../../../Redux/User/userThunk";
 import "./Profile.css";
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(null);
+  const [formValue,handleInput] = UseForm({
+    username:"",
+    email:"",
+    mobile:""
+  })
+  const {username,email,mobile} = formValue
+  const userData = useSelector((state) => state.user.userData);
+  
+  useEffect(()=>{
+    setIsEdit(false)
+  },[userData])
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('editin values',formValue)
+
+  }
 
   return (
     <>
@@ -12,10 +32,10 @@ const Profile = () => {
       <div className="container">
         <div className="profileContainer">
           {isEdit ? (
-            <div className="editForm">
-              <input type="text" name="username" placeholder="Username" />
-              <input type="email" name="email" placeholder="Email" />
-              <input type="number" name="mobile" placeholder="Mobile" />
+            <form className="editForm" onSubmit={handleSubmit}>
+              <input type="text" name="username" placeholder="Username" value={username} onChange={handleInput} />
+              <input type="email" name="email" placeholder="Email" value={email} onChange={handleInput}/>
+              <input type="number" name="mobile" placeholder="Mobile" value={mobile} onChange={handleInput} />
               <br />
               <br />
               <div className="imageContaier">
@@ -83,14 +103,21 @@ const Profile = () => {
                 type="file"
                 onChange={(e) => setImage(e.target.files[0])}
               />
-              <button onClick={() => setIsEdit(false)}>Save</button>
-            </div>
+              <div className="editform-buttons">
+                <button className="save-btn">
+                  Save
+                </button>
+                <button className="cancel-btn" onClick={() => setIsEdit(false)}>
+                  Cancel
+                </button>
+              </div>
+            </form>
           ) : (
             <>
               <img src="" alt="Profile" className="profileImage" />
-              <h3>Username : jasir</h3>
-              <h3>Email : jasir</h3>
-              <h3>Mobile : jasir</h3>
+              <h3>Username : {userData.username}</h3>
+              <h3>Email : {userData.email}</h3>
+              <h3>Mobile : {userData.mobile}</h3>
               <button onClick={() => setIsEdit(true)}>Edit</button>
             </>
           )}

@@ -26,7 +26,7 @@ const Profile = () => {
                 )}
                 <img
                   src={image ? URL.createObjectURL(image) : ""}
-                  alt="Profileimage"
+                  alt="Profile"
                   width="100px"
                   height="100px"
                   className="image"

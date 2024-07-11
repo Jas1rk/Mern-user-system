@@ -1,41 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "../..";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UseForm from "../../../Hooks/useForm";
 import { editProfile } from "../../../Redux/User/userThunk";
+import toast, { Toaster } from "react-hot-toast";
 import "./Profile.css";
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(null);
-  const [formValue,handleInput] = UseForm({
-    username:"",
-    email:"",
-    mobile:""
-  })
-  const {username,email,mobile} = formValue
+  const [formValue, handleInput] = UseForm({
+    username: "",
+    email: "",
+    mobile: "",
+  });
+  const { username, email, mobile } = formValue;
   const userData = useSelector((state) => state.user.userData);
-  
-  useEffect(()=>{
-    setIsEdit(false)
-  },[userData])
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsEdit(false);
+  }, [userData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('editin values',formValue)
-
-  }
+    const formData = new FormData();
+    formData.append("userID", userData._id);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("mobile", mobile);
+    if (image) {
+      formData.append("image", image);
+    }
+    dispatch(editProfile(formData, username, email, mobile, image, toast));
+    console.log("here is formdata", formData);
+  };
 
   return (
     <>
+      <Toaster />
       <Header />
       <div className="container">
         <div className="profileContainer">
           {isEdit ? (
             <form className="editForm" onSubmit={handleSubmit}>
-              <input type="text" name="username" placeholder="Username" value={username} onChange={handleInput} />
-              <input type="email" name="email" placeholder="Email" value={email} onChange={handleInput}/>
-              <input type="number" name="mobile" placeholder="Mobile" value={mobile} onChange={handleInput} />
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={username}
+                onChange={handleInput}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={handleInput}
+              />
+              <input
+                type="number"
+                name="mobile"
+                placeholder="Mobile"
+                value={mobile}
+                onChange={handleInput}
+              />
               <br />
               <br />
               <div className="imageContaier">
@@ -98,15 +127,13 @@ const Profile = () => {
 
               <input
                 className="input"
-                name="text"
+                name="image"
                 id="file"
                 type="file"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(event) => setImage(event.target.files[0])}
               />
               <div className="editform-buttons">
-                <button className="save-btn">
-                  Save
-                </button>
+                <button className="save-btn">Save</button>
                 <button className="cancel-btn" onClick={() => setIsEdit(false)}>
                   Cancel
                 </button>

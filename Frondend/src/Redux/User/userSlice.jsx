@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginVerify } from "./userThunk";
+import { loginVerify, editProfile } from "./userThunk";
 
 const INITIAL_STATE = {
   userData: localStorage.getItem("userData")
@@ -21,13 +21,25 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginVerify.fulfilled, (state, action) => {
-      const { userData, token } = action.payload;
-      state.userData = userData;
-      state.token = token;
-      localStorage.setItem("userData", JSON.stringify(userData));
-      localStorage.setItem("token", JSON.stringify(token));
-    });
+    builder
+      .addCase(loginVerify.fulfilled, (state, action) => {
+        const { userData, token } = action.payload;
+        state.userData = userData;
+        state.token = token;
+        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("token", JSON.stringify(token));
+      })
+      .addCase(editProfile.fulfilled, (state, action) => {
+        const { username, email, mobile, image } = action.payload;
+        state.userData.username = username;
+        state.userData.email = email;
+        state.userData.mobile = mobile;
+        if (image) {
+          state.userData.image = image;
+        }
+        state.editConfirm = true;
+        localStorage.setItem("userData", JSON.stringify(state.userData));
+      });
   },
 });
 

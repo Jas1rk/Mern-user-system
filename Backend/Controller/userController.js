@@ -41,7 +41,7 @@ const loginPost = async (req, res) => {
         };
 
         const token = createToken(userData._id);
-        res.json({userData, token});
+        res.json({ userData, token });
       } else {
         res.send("passwordIncorrect");
       }
@@ -53,7 +53,25 @@ const loginPost = async (req, res) => {
   }
 };
 
+const editProfile = async (req, res) => {
+  try {
+    const { userID, username, email, mobile } = req.body;
+    console.log("this is from body ", userID, username, email, mobile);
+    // const file = req.file
+    // const udpateUserData = {
+    //   username:username,
+    //   email:email,
+    //   mobile:mobile,
+    //   ...(file && {image:file.originalname})
+    // }
+    // const updadeUser =  await User.updateOne({_id:userID},udpateUserData)
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   registerPost,
   loginPost,
+  editProfile,
 };

@@ -7,7 +7,7 @@ const adminApi = axios.create({
 
 adminApi.interceptors.request.use(
   (config) => {
-    const token = JSON.parse(localStorage.getItem("admin-token"));
+    const token = JSON.parse(localStorage.getItem('admin-token'));
     if (token) {
       config.headers["Authorization"] = `Bearer${token}`;
     }

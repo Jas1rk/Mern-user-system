@@ -29,3 +29,8 @@ export const adminLogin = createAsyncThunk(
     }
   }
 );
+
+export const getUsers = createAsyncThunk("admin/getUsers", async () => {
+  const response = await adminApi.get(`/getuser`);
+  return response.data;
+});

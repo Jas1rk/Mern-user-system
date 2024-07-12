@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const { createToken } = require("../Config/jwt");
+const User = require("../Model/userModel");
 
 const adminLogin = async (req, res) => {
   try {
@@ -20,6 +21,17 @@ const adminLogin = async (req, res) => {
   }
 };
 
+const getusers = async (req, res) => {
+  try {
+    const userlist = await User.find({});
+    console.log('this is user list',userlist)
+    res.json(userlist);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   adminLogin,
+  getusers,
 };

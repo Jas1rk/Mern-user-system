@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { searchUser } from "../../../Redux/Admin/adminSlice";
 import "./Adminsearch.css";
+import { useDispatch } from "react-redux";
 
 const Adminsearch = () => {
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+    dispatch(searchUser(event.target.value.trim()));
+  };
+
   return (
     <div className="search-container">
       <div className="search-wrapper">
-        <input type="text" className="search" placeholder="Search user" />
+        <input
+          type="text"
+          className="search"
+          placeholder="Search user"
+          value={search}
+          onChange={(event) => handleChange(event)}
+        />
 
         <div className="cancel-icon">
           <svg

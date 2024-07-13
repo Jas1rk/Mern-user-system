@@ -23,6 +23,7 @@ const adminLogin = async (req, res) => {
 
 const getusers = async (req, res) => {
   try {
+    console.log('ingottet keeeriii')
     const userlist = await User.find({});
     console.log('this is user list',userlist)
     res.json(userlist);

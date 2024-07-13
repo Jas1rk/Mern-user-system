@@ -5,7 +5,9 @@ const {tokenVerify} = require('../Config/jwt')
 
 const {adminLogin,getusers} = adminController
 
-adminRoute.post('/login',adminLogin).get('/getuser',tokenVerify,getusers)
+adminRoute
+    .post('/login',adminLogin)
+    .get('/getuser',tokenVerify,getusers)
 
 
 module.exports = adminRoute

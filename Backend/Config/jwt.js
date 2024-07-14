@@ -11,7 +11,7 @@ const createToken = (userId) => {
   return token;
 };
 
-const tokenVerify = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   if (!authHeader) {
     return res.send("Access_denied");
@@ -32,5 +32,5 @@ const tokenVerify = (req, res, next) => {
 
 module.exports = {
   createToken,
-  tokenVerify,
+  verifyToken,
 };

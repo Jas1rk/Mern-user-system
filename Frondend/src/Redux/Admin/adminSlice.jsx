@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   jwttoken: localStorage.getItem("admin-token")
     ? JSON.parse(localStorage.getItem("admin-token"))
     : false,
-    userlist: [],
+  userlist: [],
   filterusers: [],
 };
 
@@ -19,7 +19,7 @@ const adminSlice = createSlice({
     },
     searchUser: (state, action) => {
       const name = action.payload.toLowerCase();
-      state.filterusers = state.users.filter((user) =>
+      state.filterusers = state.userlist.filter((user) =>
         user.username.toLowerCase().includes(name)
       );
     },
@@ -35,7 +35,7 @@ const adminSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action) => {
         const userList = action.payload;
         state.userlist = userList;
-        
+        state.filterusers = userList
       });
   },
 });

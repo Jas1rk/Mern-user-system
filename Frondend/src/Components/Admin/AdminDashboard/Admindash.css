@@ -66,3 +66,7 @@
 .list input::placeholder {
     padding-left: 10px;
 }
+
+.td-mobile {
+ padding-right: 10px;
+}

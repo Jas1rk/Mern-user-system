@@ -6,7 +6,7 @@ import "./Admindash.css";
 
 const Admindash = () => {
   const [isEdit, setEdit] = useState(false);
-  const userData = useSelector((state) => state.admin.userlist);
+  const userData = useSelector((state) => state.admin.filterusers);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,60 +31,62 @@ const Admindash = () => {
               <th className="heading">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="list">
-              {isEdit ? (
-                <>
-                  <td>
-                    <input type="text" name="" id="" placeholder="Username" />
-                  </td>
-                  <td>
-                    <input type="email" name="" placeholder="Email" />
-                  </td>
-                  <td>
-                    <input type="number" name="" placeholder="Mobile" />
-                  </td>
-                  <div className="button-section">
+          {userData.map((user, index) => (
+            <tbody key={index}>
+              <tr className="list">
+                {isEdit ? (
+                  <>
                     <td>
-                      <button
-                        className="adminedit"
-                        onClick={() => setEdit(true)}
-                      >
-                        Save
-                      </button>
+                      <input type="text" name="" id="" placeholder="Username" />
                     </td>
                     <td>
-                      <button
-                        className="admindelete"
-                        onClick={() => setEdit(false)}
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <td>qqqqq</td>
-                  <td>wwwww</td>
-                  <td>11111</td>
-                  <div className="button-section">
-                    <td>
-                      <button
-                        className="adminedit"
-                        onClick={() => setEdit(true)}
-                      >
-                        Edit
-                      </button>
+                      <input type="email" name="" placeholder="Email" />
                     </td>
                     <td>
-                      <button className="admindelete">Delete</button>
+                      <input type="number" name="" placeholder="Mobile" />
                     </td>
-                  </div>
-                </>
-              )}
-            </tr>
-          </tbody>
+                    <div className="button-section">
+                      <td>
+                        <button
+                          className="adminedit"
+                          onClick={() => setEdit(true)}
+                        >
+                          Save
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="admindelete"
+                          onClick={() => setEdit(false)}
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <td>{user?.username}</td>
+                    <td>{user?.email}</td>
+                    <td className="td-mobile">{user?.mobile}</td>
+                    <div className="button-section">
+                      <td>
+                        <button
+                          className="adminedit"
+                          onClick={() => setEdit(true)}
+                        >
+                          Edit
+                        </button>
+                      </td>
+                      <td>
+                        <button className="admindelete">Delete</button>
+                      </td>
+                    </div>
+                  </>
+                )}
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
     </>

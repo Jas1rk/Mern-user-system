@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { searchUser } from "../../../Redux/Admin/adminSlice";
 import "./Adminsearch.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { CancelIcon } from "../..";
 
 const Adminsearch = () => {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
+  const filterUsers = useSelector((state) => state.admin.filterusers);
 
   const handleChange = (event) => {
     setSearch(event.target.value);
     dispatch(searchUser(event.target.value.trim()));
+  };
+  const cancelSearch = () => {
+    setSearch("");
+    dispatch(searchUser(""));
   };
 
   return (
@@ -22,22 +28,21 @@ const Adminsearch = () => {
           value={search}
           onChange={(event) => handleChange(event)}
         />
-
-        <div className="cancel-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="14"
-            width="11.5"
-            viewBox="0 0 512 512"
-            style={{ cursor: "pointer" }}
-          >
-            <path
-              fill="#000000"
-              d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
-            />
-          </svg>
-        </div>
+        {search.length !== 0 && (
+          <div className="cancel-icon" onClick={cancelSearch}>
+            <CancelIcon />
+          </div>
+        )}
       </div>
+      {search.length !== 0 && (
+        <div className="search-results">
+          {filterUsers.length > 0 ? (
+            <div>{filterUsers[0]?.username}</div>
+          ) : (
+            <div>No results</div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -9,3 +9,6 @@ export {default as AdminLogin} from "./Admin/AdminLogin/Adminlogin"
 export {default as AdminNavbar} from "./Admin/AdminNavbar/Adminnavbar"
 export {default as AdminDashboard} from "./Admin/AdminDashboard/Admindash"
 export {default as AdminSearch} from "./Admin/AdminSearch/Adminsearch"
+
+export {default as CancelIcon} from "./Svg/Cancel"
+export {default as ImageUpload} from "./Svg/Fileupload"

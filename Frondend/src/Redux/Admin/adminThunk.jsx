@@ -34,3 +34,14 @@ export const getUsers = createAsyncThunk("admin/getUsers", async () => {
   const response = await adminApi.get(`/getuser`);
   return response.data;
 });
+
+export const deletUser = createAsyncThunk(
+  "admin/deletUser",
+  async ({ userid, toast }) => {
+    const response = await adminApi.post(`/delete`,{userid})
+    if(response.data.deletedCount === 1){
+      toast.success("User Deleted Successfully")
+      return userid
+    }
+  }
+);

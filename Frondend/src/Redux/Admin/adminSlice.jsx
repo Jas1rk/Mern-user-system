@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { adminLogin, getUsers } from "./adminThunk";
+import { adminLogin, getUsers, deletUser } from "./adminThunk";
 
 const INITIAL_STATE = {
   jwttoken: localStorage.getItem("admin-token")
@@ -35,7 +35,16 @@ const adminSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action) => {
         const userList = action.payload;
         state.userlist = userList;
-        state.filterusers = userList
+        state.filterusers = userList;
+      })
+      .addCase(deletUser.fulfilled, (state, action) => {
+        const userid = action.payload;
+        state.userlist = state.userlist.filter(
+          (user) => user._id !== userid && user
+        );
+        state.filterusers = state.filterusers.filter(
+          (user) => user._id !== userid && user
+        );
       });
   },
 });

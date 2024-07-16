@@ -32,7 +32,20 @@ const getusers = async (req, res) => {
   }
 };
 
+
+const deletion = async(req,res) => {
+  try{
+    const {userid} = req.body
+    const deleteUser = await User.deleteOne({_id:userid})
+    console.log('deleted',deleteUser)
+    res.json(deleteUser)
+  }catch(err){
+    console.log(err.message)
+  }
+}
+
 module.exports = {
   adminLogin,
   getusers,
+  deletion
 };

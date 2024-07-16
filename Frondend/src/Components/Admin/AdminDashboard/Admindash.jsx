@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AdminNavbar, AdminSearch } from "../..";
-import { getUsers } from "../../../Redux/Admin/adminThunk";
+import { getUsers, deletUser } from "../../../Redux/Admin/adminThunk";
 import { useDispatch, useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 import "./Admindash.css";
 
 const Admindash = () => {
@@ -14,8 +15,13 @@ const Admindash = () => {
     console.log("here is users", userData);
   }, []);
 
+  const hadleDelete  = (userid) => {
+    dispatch(deletUser({userid,toast}));
+  }
+
   return (
     <>
+    <Toaster/>
       <AdminNavbar />
       <div className="main">
         <h1>users</h1>
@@ -68,7 +74,7 @@ const Admindash = () => {
                   <>
                     <td>{user?.username}</td>
                     <td>{user?.email}</td>
-                    <td className="td-mobile">{user?.mobile}</td>
+                    <td>{user?.mobile}</td>
                     <div className="button-section">
                       <td>
                         <button
@@ -79,7 +85,7 @@ const Admindash = () => {
                         </button>
                       </td>
                       <td>
-                        <button className="admindelete">Delete</button>
+                        <button className="admindelete" onClick={()=> hadleDelete(user._id)}>Delete</button>
                       </td>
                     </div>
                   </>

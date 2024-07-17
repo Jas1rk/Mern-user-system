@@ -8,6 +8,6 @@ const { adminLogin, getusers, deletion } = adminController;
 adminRoute
   .post("/login", adminLogin)
   .get("/getuser", getusers)
-  .post("/delete", deletion);
+  .delete("/delete", deletion);
 
 module.exports = adminRoute;

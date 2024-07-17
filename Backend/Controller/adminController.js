@@ -23,29 +23,25 @@ const adminLogin = async (req, res) => {
 
 const getusers = async (req, res) => {
   try {
-    console.log('ingottet keeeriii')
     const userlist = await User.find({});
-    console.log('this is user list',userlist)
     res.json(userlist);
   } catch (err) {
     console.log(err);
   }
 };
 
-
-const deletion = async(req,res) => {
-  try{
-    const {userid} = req.body
-    const deleteUser = await User.deleteOne({_id:userid})
-    console.log('deleted',deleteUser)
-    res.json(deleteUser)
-  }catch(err){
-    console.log(err.message)
+const deletion = async (req, res) => {
+  try {
+    const { userid } = req.body;
+    const deleteUser = await User.deleteOne({ _id: userid });
+    res.json(deleteUser);
+  } catch (err) {
+    console.log(err.message);
   }
-}
+};
 
 module.exports = {
   adminLogin,
   getusers,
-  deletion
+  deletion,
 };

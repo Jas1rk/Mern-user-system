@@ -5,33 +5,43 @@ import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import UseForm from "../../../Hooks/useForm";
 import "./Admindash.css";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const Admindash = () => {
   const [isEdit, setEdit] = useState(null);
   const userData = useSelector((state) => state.admin.filterusers);
   const dispatch = useDispatch();
-  const [values,handlechange,setValues] = UseForm({username:"",email:"",mobile:""})
-  const {username,email,mobile} = values
+  const [values, handlechange, setValues] = UseForm({
+    username: "",
+    email: "",
+    mobile: "",
+  });
+  const { username, email, mobile } = values;
 
   useEffect(() => {
     dispatch(getUsers());
-    console.log("here is users", userData);
   }, []);
 
   const hadleDelete = (userid) => {
     dispatch(deletUser({ userid, toast }));
   };
 
-  const handleEdit = (userid,username,email,mobile) => {
-   setEdit(userid)
-   setValues({username,email,mobile}) 
+  const handleEdit = (userid, username, email, mobile) => {
+    setEdit(userid);
+    setValues({ username, email, mobile });
   };
 
-  const handleSave = (userid) => {
-    dispatch(editUser({userid,username,email,mobile,toast}))
-    setEdit(null)
-    
-  }
+  const handleSave = async (userid) => {
+    try {
+      const result = await dispatch(
+        editUser({ userid, username, email, mobile, toast })
+      );
+      unwrapResult(result);
+      setEdit(null);
+    } catch (err) {
+      console.log("error is here", err);
+    }
+  };
 
   return (
     <>
@@ -51,30 +61,49 @@ const Admindash = () => {
               <th className="heading">Action</th>
             </tr>
           </thead>
-          {userData.map((user, index) => (
-            <tbody key={index}>
+          {userData.map((user) => (
+            <tbody key={user._id}>
               <tr className="list">
                 {isEdit === user._id ? (
                   <>
                     <td>
-                      <input type="text" name="username" id="" placeholder="Username" value={username} onChange={handlechange} />
+                      <input
+                        type="text"
+                        name="username"
+                        id=""
+                        placeholder="Username"
+                        value={username}
+                        onChange={handlechange}
+                      />
                     </td>
                     <td>
-                      <input type="email" name="email" placeholder="Email" value={email}  onChange={handlechange} />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handlechange}
+                      />
                     </td>
                     <td>
-                      <input type="number" name="mobile" placeholder="Mobile"  value={mobile}  onChange={handlechange} />
+                      <input
+                        type="number"
+                        name="mobile"
+                        placeholder="Mobile"
+                        value={mobile}
+                        onChange={handlechange}
+                      />
                     </td>
                     <div className="button-section">
                       <td>
                         <button
                           className="adminedit"
-                          onClick={()=>handleSave(user._id)}
+                          onClick={() => handleSave(user._id)}
                         >
                           Save
                         </button>
                       </td>
-                      <td>  
+                      <td>
                         <button
                           className="admindelete"
                           onClick={() => setEdit(null)}
@@ -93,7 +122,14 @@ const Admindash = () => {
                       <td>
                         <button
                           className="adminedit"
-                          onClick={() => handleEdit(user._id,user.username,user.email,user.mobile)}
+                          onClick={() =>
+                            handleEdit(
+                              user._id,
+                              user.username,
+                              user.email,
+                              user.mobile
+                            )
+                          }
                         >
                           Edit
                         </button>

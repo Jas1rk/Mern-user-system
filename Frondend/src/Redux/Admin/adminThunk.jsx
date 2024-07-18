@@ -38,10 +38,38 @@ export const getUsers = createAsyncThunk("admin/getUsers", async () => {
 export const deletUser = createAsyncThunk(
   "admin/deletUser",
   async ({ userid, toast }) => {
-    const response = await adminApi.delete(`/delete`,{data:{userid}})
-    if(response.data.deletedCount === 1){
-      toast.success("User Deleted Successfully")
-      return userid
+    const response = await adminApi.delete(`/delete`, { data: { userid } });
+    if (response.data.deletedCount === 1) {
+      toast.success("User Deleted Successfully");
+      return userid;
     }
   }
 );
+
+
+export const  editUser = createAsyncThunk("admin/editUser", async({userid,username,email,mobile,toast},{rejectWithValue}) => {
+   username = username.trim()
+   email = email.trim()
+   mobile = mobile.trim()
+
+   const usernameRegex = /^[a-zA-Z\s]{3,20}$/;
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   const mobileRegex = /^[6-9]\d{9}$/;
+
+
+   if(username === "" || email === "" || mobile === ""){
+    toast.error("Please fill all the fields");
+    return rejectWithValue("Please fill all the fields");
+   }else if(!usernameRegex.test(username)){
+    toast.error("Username must be 3 to 20 characters long and can only contain alphab")
+    return rejectWithValue("Username must be 3 to 20 characters long and can only contain alph")
+   }else if(!emailRegex.test(email)){
+    toast.error("Please enter a valid email")
+    return rejectWithValue("Please enter a valid email")
+   }else if(!mobileRegex.test(mobile)){
+    toast.error("Please enter a valid mobile number")
+    return rejectWithValue("Please enter a valid mobile number")
+   }else{
+    const response = await adminApi.put(``)
+   }
+})

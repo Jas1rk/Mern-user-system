@@ -40,8 +40,24 @@ const deletion = async (req, res) => {
   }
 };
 
+const adminEditUser = async(req,res) => {
+  try{
+    const {userid,username,email,mobile} = req.body
+    const update = await User.updateOne({_id:userid},{$set:{
+      username:username,
+      email:email,
+      mobile:mobile
+    }})
+    res.json(update)
+  }catch(err){
+    console.log(err.message)
+  }
+}
+
 module.exports = {
   adminLogin,
   getusers,
   deletion,
+  adminEditUser
 };
+

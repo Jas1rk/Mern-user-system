@@ -7,8 +7,8 @@ const { adminLogin, getusers, deletion, adminEditUser } = adminController;
 
 adminRoute
   .post("/login", adminLogin)
-  .get("/getuser", getusers)
-  .delete("/delete", deletion)
-  .put("/edit", adminEditUser);
+  .get("/getuser", verifyToken, getusers)
+  .delete("/delete", verifyToken, deletion)
+  .put("/edit", verifyToken, adminEditUser);
 
 module.exports = adminRoute;

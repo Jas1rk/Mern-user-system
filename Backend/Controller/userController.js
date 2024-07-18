@@ -54,17 +54,18 @@ const loginPost = async (req, res) => {
 };
 
 const editProfile = async (req, res) => {
-  try {
+  try { 
     const { userID, username, email, mobile } = req.body;
-    console.log("this is from body ", userID, username, email, mobile);
-    // const file = req.file
-    // const udpateUserData = {
-    //   username:username,
-    //   email:email,
-    //   mobile:mobile,
-    //   ...(file && {image:file.originalname})
-    // }
-    // const updadeUser =  await User.updateOne({_id:userID},udpateUserData)
+    const file = req.file
+    const udpateUserData = {
+      username:username,
+      email:email,
+      mobile:mobile,
+      ...(file && {image:file.originalname})
+    }
+    const updateUser =  await User.updateOne({_id:userID},udpateUserData)
+    console.log('userData updated==>>',updateUser)
+    res.json(updateUser)
   } catch (err) {
     console.log(err);
   }

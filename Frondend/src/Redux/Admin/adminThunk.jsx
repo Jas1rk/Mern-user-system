@@ -37,11 +37,19 @@ export const getUsers = createAsyncThunk("admin/getUsers", async () => {
 
 export const deletUser = createAsyncThunk(
   "admin/deletUser",
-  async ({ userid, toast }) => {
+  async ({ userid, toast }, { rejectWithValue }) => {
     const response = await adminApi.delete(`/delete`, { data: { userid } });
     if (response.data.deletedCount === 1) {
       toast.success("User Deleted Successfully");
       return userid;
+    } else if (response.data === "Access_denied") {
+      toast.error("Access Denied");
+      return rejectWithValue("Access Denied");
+    } else if (response.data === "Authentication_filed") {
+      toast.error("Authentication Filed");
+      return rejectWithValue("Authentication Filed");
+    } else {
+      toast.error("Something went wrong");
     }
   }
 );
@@ -80,9 +88,17 @@ export const editUser = createAsyncThunk(
         email,
         mobile,
       });
-      if(response.data.modifiedCount === 1){
+      if (response.data.modifiedCount === 1) {
         toast.success("User Updated Successfully");
         return { userid, username, email, mobile };
+      } else if (response.data === "Access_denied") {
+        toast.error("Access Denied");
+        return rejectWithValue("Access Denied");
+      } else if (response.data === "Authentication_filed") {
+        toast.error("Authentication Filed");
+        return rejectWithValue("Authentication Filed");
+      } else {
+        toast.error("Something went wrong");
       }
     }
   }

@@ -102,7 +102,14 @@ export const editProfile = createAsyncThunk(
       const mobileRegex = /^[6-9]\d{9}$/;
 
       if (username === "" || email === "" || mobile === "") {
-        toast.error("Please fill all the fields");
+        toast.error("Please fill all the fields", {
+          style: {
+            backgroundColor: "black",
+            color: "white",
+            border: "1px solid red",
+            boxShadow: "0 4px 8px black",
+          },
+        });
         return rejectWithValue("Please fill all the fields");
       } else if (!usernameRegex.test(username)) {
         toast.error(
@@ -119,12 +126,37 @@ export const editProfile = createAsyncThunk(
         return rejectWithValue("Please enter a valid mobile number");
       } else {
         const token = JSON.parse(localStorage.getItem("token"));
-        const response = await axios.post(`${serverUrl}/edit`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${token}`,
-          },
-        });
+        const response = await axios.post(
+          `${serverUrl}/editprofile`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (
+          response.data.acknowledged === true &&
+          response.data.modifiedCount == 1
+        ) {
+          toast.success("Profile updated successfully");
+          return {
+            username,
+            email,
+            mobile,
+            ...(image && { image: image.name }),
+          };
+        } else if (response.data === "Access_denied") {
+          toast.error("Access denied");
+          return rejectWithValue("Access denied");
+        } else if (response.data === "Authentication_filed") {
+          toast.error("Authentication failed");
+          return rejectWithValue("Authentication failed");
+        } else {
+          toast.error("no changes");
+          return rejectWithValue("no changes");
+        }
       }
     } catch (error) {
       toast.error("Something went wrong");

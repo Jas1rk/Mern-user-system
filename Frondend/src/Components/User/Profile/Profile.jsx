@@ -32,8 +32,8 @@ const Profile = () => {
     if (image) {
       formData.append("image", image);
     }
-    dispatch(editProfile(formData, username, email, mobile, image, toast));
-    console.log("here is formdata", formData);
+    dispatch(editProfile({ formData, username, email, mobile, image, toast }));
+    console.log('formdata is here',formData)
   };
 
   return (
@@ -99,7 +99,11 @@ const Profile = () => {
             </form>
           ) : (
             <>
-              <img src="" alt="Profile" className="profileImage" />
+              <img
+                src={`../src/assets/Images${userData.image}`}
+                alt="Profile"
+                className="profileImage"
+              />
               <h3>Username : {userData.username}</h3>
               <h3>Email : {userData.email}</h3>
               <h3>Mobile : {userData.mobile}</h3>
